@@ -1,0 +1,22 @@
+export const navMenu = [
+    {
+        name:"Home",
+        img:"./images/home.svg",
+    },
+    {
+        name:"Analytics",
+        img:"./images/insert_chart.svg",
+    },
+    {
+        name:"Revenue",
+        img:"./images/payments.svg",
+    },
+    {
+        name:"CRM",
+        img:"./images/group.svg",
+    },
+    {
+        name:"Apps",
+        img:"./images/widgets.svg",
+    },
+]

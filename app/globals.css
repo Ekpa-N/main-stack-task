@@ -2,26 +2,116 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@font-face {
+  font-family: 'degular';
+  src: url('../public/fonts/Degular-Regular.otf');
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-}
+} */
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+}
+
+* {
+  box-sizing: border-box;
+  /* font-family: 'crwx-n4', 'adobe-notdef'; */
+  font-family: "degular";
+}
+
+/* .react-calendar__navigation {
+  display: flex;
+  width: 90%;
+  margin: auto;
+} */
+
+/* .react-calendar {
+  height: 360px;
+  border: none !important;
+} */
+
+/* .react-calendar__viewContainer {
+  height: 400px;
+} */
+
+/* .ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+} */
+
+
+
+/* .react-calendar__month-view__weekdays__weekday {
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center !important;
+  background: -webkit-linear-gradient(#F6BC18, #EF6B25);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+} */
+
+/* .react-calendar button {
+  margin: 0;
+  border: 0;
+  outline: none;
+  color: black;
+  background: #ffffff !important;
+} */
+
+.react-calendar__viewContainer button:hover {
+  background: #131316 !important;
+  /* border-radius: 50%; */
+  color: aliceblue !important;
+}
+
+button.react-calendar__tile--now {
+  background: inherit;
+  color: aliceblue;
+}
+
+/* .react-calendar__viewContainer button:focus {
+  background: -webkit-linear-gradient(#F6BC18, #EF6B25) !important;
+  width: 30px !important;
+  height: 50px !important;
+  border-radius: 60%;
+} */
+
+.react-calendar__viewContainer button {
+  width: 20px !important;
+  height: 40px !important;
+  border-radius: 60% !important;
+  font-size: 14px !important;
+}
+
+/* .calendar-component button:hover {
+  border-radius: 50%;
+  height: 45px;
+} */
+
+.react-calendar__month-view__days__day--weekend {
+  color: #000000 !important;
+}
+
+.react-calendar {
+  width: 350px;
+  max-width: 100%;
+  background: white;
+  border: none !important;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 10px !important;
 }
