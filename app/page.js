@@ -174,7 +174,7 @@ export default function Home() {
       <div className={`ml-[-16px] w-screen ${modal ? "fixed" : "hidden"} flex justify-center h-screen overflow-hidden opacity-[0.7] bg-black z-[11]`}>
       </div>
       {/* ${modal ? "fixed" : "hidden"} */}
-      <div className={`fixed h-[670px] ${modal ? "fixed" : "hidden"} w-[456px] z-[15] bg-[#ffffff] border left-[50%] ml-[-228px] mt-[20px] rounded-[20px]`}>
+      <div className={`fixed h-[650px] ${modal ? "fixed" : "hidden"} w-[456px] z-[15] bg-[#ffffff] border left-[50%] ml-[-228px] mt-[20px] rounded-[20px]`}>
         <FilterForm searchFilter={getFilteredData} resetFilters={resetFilters} filterCheck={filterCheck} setDateRange={setDateRange} filterData={filterData} handleFilterData={handleFilterData} closeForm={setModalState} focus={focus} handleFocus={handleFocus} />
       </div>
       <div className="h-[16px] fixed top-0 z-[10] w-full bg-white borde"></div>
