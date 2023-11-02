@@ -74,15 +74,15 @@ export default function Home() {
         const newInitials = makeInitial(userResponse.data.first_name, userResponse.data.last_name)
         setInitials(newInitials)
         const sortedTransactions = dateSorter(transactionsResponse.data.map((transaction) => transaction.date))
+        const currentMonths = getCurrentMonths(transactionsResponse.data)
+        // debugger
         setChartRange({ ...chartRange, dateTo: formatDate(sortedTransactions[sortedTransactions.length - 1]), dateFrom: formatDate(sortedTransactions[0]), count: sortedTransactions.length })
-        // setChart(getCurrentMonths(transactionsResponse.data))
         const newChartData = getCurrentMonths(transactionsResponse.data)
         if (newChartData.length == 1) {
           newChartData.unshift({ mth: "RND", amount: 0 })
         }
-        // setChart(getCurrentMonths(transactionsResponse.data))
         setChart(newChartData)
-        // console.log(getCurrentMonths(transactionsResponse.data))
+        
       })
       .catch(error => console.log(error))
   }, [])
@@ -120,7 +120,6 @@ export default function Home() {
           setData({ ...data, transactions: filteredMatches })
           const sortedTransactions = dateSorter(theDatesFiltered.map((transaction) => transaction.date))
           setChartRange({ ...chartRange, dateTo: formatDate(sortedTransactions[0]), dateFrom: formatDate(sortedTransactions[sortedTransactions.length - 1]), count: sortedTransactions.length })
-          // setChart(getCurrentMonths(filteredMatches))
           const newChartData = getCurrentMonths(filteredMatches)
           if (newChartData.length == 1) {
             newChartData.unshift({ mth: "RND", amount: 0 })

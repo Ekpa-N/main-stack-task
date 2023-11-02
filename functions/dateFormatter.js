@@ -69,18 +69,7 @@ export function getCurrentMonths(transactions) {
       }
     }
   });
-  months.forEach((month) => {
-    let sum = 0
-    amountObjects.forEach((obj) => {
-      if(obj.mth == month){
-        sum = sum + obj.amount
-      }
-    })
-    final.push({mth:month, amount:sum})
-  })
-  console.log("final: ", final)
-
-  return final;
+  return amountObjects
 }
 
 export function transactionSorted(finalData) {
