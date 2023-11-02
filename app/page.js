@@ -119,7 +119,7 @@ export default function Home() {
           console.log("all matched: ", firstMatches)
           setData({ ...data, transactions: filteredMatches })
           const sortedTransactions = dateSorter(theDatesFiltered.map((transaction) => transaction.date))
-          setChartRange({ ...chartRange, dateTo: formatDate(sortedTransactions[0]), dateFrom: formatDate(sortedTransactions[sortedTransactions.length - 1]), count: sortedTransactions.length })
+          setChartRange({ ...chartRange, dateTo: formatDate(sortedTransactions[sortedTransactions.length - 1]), dateFrom: formatDate(sortedTransactions[0]), count: sortedTransactions.length })
           const newChartData = getCurrentMonths(filteredMatches)
           if (newChartData.length == 1) {
             newChartData.unshift({ mth: "RND", amount: 0 })
@@ -134,7 +134,7 @@ export default function Home() {
       .then((transactionsResponse) => {
         setData({ ...data, transactions: transactionsResponse.data })
         const sortedTransactions = dateSorter(transactionsResponse.data.map((transaction) => transaction.date))
-        setChartRange({ ...chartRange, dateTo: formatDate(sortedTransactions[0]), dateFrom: formatDate(sortedTransactions[sortedTransactions.length - 1]), count: sortedTransactions.length })
+        setChartRange({ ...chartRange, dateTo: formatDate(sortedTransactions[sortedTransactions.length - 1]), dateFrom: formatDate(sortedTransactions[0]), count: sortedTransactions.length })
         const newChartData = getCurrentMonths(transactionsResponse.data)
         if (newChartData.length == 1) {
           newChartData.unshift({ mth: "RND", amount: 0 })
