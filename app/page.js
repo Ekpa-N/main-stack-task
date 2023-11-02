@@ -10,7 +10,7 @@ import { walletMenu } from "@/constants/walletMenu"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import makeInitial from "@/functions/initialMaker"
-import formatDate, { dateFormatLocale, setDateRange, dateSorter, dateFilter } from "@/functions/dateFormatter"
+import formatDate, { dateFormatLocale, setDateRange, dateSorter, dateFilter, getCurrentMonths } from "@/functions/dateFormatter"
 import FilterForm from "@/components/FilterForm"
 import formValidator from "@/functions/formValidator"
 import { transactionSets } from "@/constants/transactionSets"
@@ -18,25 +18,6 @@ import { transactionSets } from "@/constants/transactionSets"
 Chart.register(CategoryScale)
 
 export default function Home() {
-
-  const chartData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
-    datasets: [
-      {
-        label: "Users Gained ",
-        data: [1, 2, 0, 0, 6, 4, 1, 3],
-        borderColor: "#FF5403",
-        borderWidth: 1,
-        tension: 0.4,
-        radius: 0.01,
-      }
-    ]
-
-  }
-
-
-
-
   const initialFilterObject = {
     dateTo: "dd mm yyyy",
     dateFrom: "dd mm yyyy",
@@ -63,6 +44,26 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState("Revenue")
   const [chartRange, setChartRange] = useState({ dateTo: "", dateFrom: "", count: 0 })
   const [filterCheck, setFilterCheck] = useState(true)
+  const [chart, setChart] = useState([])
+  // getCurrentMonths(transactionsResponse.data)
+
+
+  const chartData = {
+    // chart.map((item) => { return item.mth})
+    labels: chart.map((item) => { return item.mth }),
+    datasets: [
+      {
+        label: "Users Gained ",
+        // chart.map((item) => { return item.amount})
+        data: chart.map((item) => { return item.amount }),
+        borderColor: "#FF5403",
+        borderWidth: 1,
+        tension: 0.4,
+        radius: 0.01,
+      }
+    ]
+
+  }
 
 
   useEffect(() => {
@@ -73,6 +74,14 @@ export default function Home() {
         setInitials(newInitials)
         const sortedTransactions = dateSorter(transactionsResponse.data.map((transaction) => transaction.date))
         setChartRange({ ...chartRange, dateTo: formatDate(sortedTransactions[0]), dateFrom: formatDate(sortedTransactions[sortedTransactions.length - 1]), count: sortedTransactions.length })
+        // setChart(getCurrentMonths(transactionsResponse.data))
+        const newChartData = getCurrentMonths(transactionsResponse.data)
+        if (newChartData.length == 1) {
+          newChartData.unshift({ mth: "RND", amount: 0 })
+        }
+        // setChart(getCurrentMonths(transactionsResponse.data))
+        setChart(newChartData)
+        // console.log(getCurrentMonths(transactionsResponse.data))
       })
       .catch(error => console.log(error))
   }, [])
@@ -110,6 +119,12 @@ export default function Home() {
           setData({ ...data, transactions: filteredMatches })
           const sortedTransactions = dateSorter(theDatesFiltered.map((transaction) => transaction.date))
           setChartRange({ ...chartRange, dateTo: formatDate(sortedTransactions[0]), dateFrom: formatDate(sortedTransactions[sortedTransactions.length - 1]), count: sortedTransactions.length })
+          // setChart(getCurrentMonths(filteredMatches))
+          const newChartData = getCurrentMonths(filteredMatches)
+          if (newChartData.length == 1) {
+            newChartData.unshift({ mth: "RND", amount: 0 })
+          }
+          setChart(newChartData)
         })
         .catch(error => console.log(error))
       return
@@ -120,6 +135,11 @@ export default function Home() {
         setData({ ...data, transactions: transactionsResponse.data })
         const sortedTransactions = dateSorter(transactionsResponse.data.map((transaction) => transaction.date))
         setChartRange({ ...chartRange, dateTo: formatDate(sortedTransactions[0]), dateFrom: formatDate(sortedTransactions[sortedTransactions.length - 1]), count: sortedTransactions.length })
+        const newChartData = getCurrentMonths(transactionsResponse.data)
+        if (newChartData.length == 1) {
+          newChartData.unshift({ mth: "RND", amount: 0 })
+        }
+        setChart(newChartData)
       })
       .catch(error => console.log(error))
   }
