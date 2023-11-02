@@ -10,9 +10,10 @@ import { walletMenu } from "@/constants/walletMenu"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import makeInitial from "@/functions/initialMaker"
-import formatDate, { dateFormatLocale, setDateRange, dateSorter, dateFilter, getCurrentMonths } from "@/functions/dateFormatter"
+import formatDate, { dateFormatLocale, setDateRange, dateSorter, dateFilter, getCurrentMonths, transactionSorted } from "@/functions/dateFormatter"
 import FilterForm from "@/components/FilterForm"
 import formValidator from "@/functions/formValidator"
+import { sentenceCaser } from "@/functions/sentenceCaser"
 import { transactionSets } from "@/constants/transactionSets"
 
 Chart.register(CategoryScale)
@@ -73,7 +74,7 @@ export default function Home() {
         const newInitials = makeInitial(userResponse.data.first_name, userResponse.data.last_name)
         setInitials(newInitials)
         const sortedTransactions = dateSorter(transactionsResponse.data.map((transaction) => transaction.date))
-        setChartRange({ ...chartRange, dateTo: formatDate(sortedTransactions[0]), dateFrom: formatDate(sortedTransactions[sortedTransactions.length - 1]), count: sortedTransactions.length })
+        setChartRange({ ...chartRange, dateTo: formatDate(sortedTransactions[sortedTransactions.length - 1]), dateFrom: formatDate(sortedTransactions[0]), count: sortedTransactions.length })
         // setChart(getCurrentMonths(transactionsResponse.data))
         const newChartData = getCurrentMonths(transactionsResponse.data)
         if (newChartData.length == 1) {
@@ -329,8 +330,8 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="flex flex-col justify-between">
-                    <h2 className="font-[500] text-[16px] leading-[24px]">{transaction.metadata?.product_name || "n/a"}</h2>
-                    <h2 className="font-[500] text-[#56616B] text-[14px] leading-[16px]">{transaction.metadata?.name || "n/a"}</h2>
+                    <h2 className="font-[500] text-[16px] leading-[24px]">{transaction.metadata?.product_name || sentenceCaser(transaction.type)}</h2>
+                    <h2 className="font-[500] text-[#56616B] text-[14px] leading-[16px]">{transaction.metadata?.name || sentenceCaser(transaction.status)}</h2>
                   </div>
                 </div>
 
